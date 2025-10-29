@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +16,28 @@ public class Main {
             System.exit(-1);
         }
 
-        System.out.println(db.selectAll());
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Inserisci il nome del piatto da inserire: ");
+        String nomePiatto = scan.nextLine();
+        System.out.println("Inserisci il prezzo del piatto da inserire: ");
+        float prezzo = scan.nextFloat();
+        scan.nextLine();
+        System.out.println("Inserisci la quanità del piatto da inserire: ");
+        int quantita = scan.nextInt();
+        scan.nextLine();
 
+
+
+        if(db.insert(nomePiatto, prezzo, quantita))
+            System.out.println("Piatto inserito con successo");
+
+
+
+        System.out.println(db.selectAll());
+        /* per prox volta:
+            completare esercizio con menu a scelta che esegua le operazioni CRUD
+            consegnare  propria repository
+
+        */
     }
 }
