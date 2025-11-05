@@ -21,7 +21,10 @@ public class Main {
 
         Database db = null;
         try{
-            db = new Database();
+            // design pattern = soluzione logica a un problema ricorrente
+            // esempi: builder, factory, odserver (23)
+            // useremo Singleton
+            db = Database.getIstance();
         } catch (SQLException e) {
             System.err.println("Error connecting to database: " + e.getMessage());
             System.exit(-1);
@@ -31,22 +34,24 @@ public class Main {
 
         System.out.println(db.selectAll());
         /* per prox volta:
-            completare esercizio con menu a scelta che esegua le operazioni CRUD
+            completare esercizio con menu a scelta che esegua le operazioni CRUD (create read update delete)
+            es premo 1 inserisco, 2 update, 3 cancello ecc.
             consegnare  propria repository
 
         */
         System.out.println("MENU Operazioni CRUD\n1. Insert\n2. Update\n3. Delete\n4. Select\n5. Exit");
 		System.out.print("Scelta (numero): ");
-		choice = in.nextInt();
+		int choice = scan.nextInt();
 		System.out.println("-----------------------------------------");
 
-        String nomePiatto = '';
+        String nomePiatto;
         float prezzo = 0;
-        int quanita = 0;
+        int quantita = 0;
 		switch(choice){
 			case 1:
                 System.out.println("1.Inserisci Dato");
 				System.out.println("Inserisci il nome del piatto da inserire: ");
+                scan.nextLine();
                 nomePiatto = scan.nextLine();
                 System.out.println("Inserisci il prezzo del piatto da inserire: ");
                 prezzo = scan.nextFloat();
@@ -62,7 +67,8 @@ public class Main {
 			case 2:
 				System.out.println("2.Aggiorna Dato");
  
-				System.out.println("Nome del piatto da agigornare: ");
+				System.out.println("Nome del piatto da aggiornare: ");
+                scan.nextLine();
                 nomePiatto = scan.nextLine();
                 System.out.println("Nuovo prezzo: ");
                 prezzo = scan.nextFloat();
@@ -79,6 +85,7 @@ public class Main {
 				System.out.println("3. Cancella Dato");
  
 				System.out.println("Inserisci nome: ");
+                scan.nextLine();
 				nomePiatto = scan.nextLine();
  
 				if(db.delete(nomePiatto))
